@@ -8,15 +8,17 @@ let btnNew=document.querySelector('.btn--new');
 let btnRoll=document.querySelector('.btn--roll');
 let btnHold=document.querySelector('.btn--hold');
 let current0=document.getElementById('current--0');
-
+let Player0=document.querySelector('.player--0');
+let Player1=document.querySelector('.player--1');
 // Setting to initial values
 
 score0.textContent=0;
 score1.textContent=0;
 diceval.classList.add('hidden');
 
+const score=[0,0];
 let currentScore=0;
-
+let activePlayer=0;
 //ROLLING DICE FUNCTIONALITY
 btnRoll.addEventListener('click',function(){
     // Generating a random dice roll
@@ -27,11 +29,16 @@ btnRoll.addEventListener('click',function(){
     //check for rolled:1 (if true current ==0 and other player turn)(else roll again)
     if(number==1)
     {
-
+        let nonActive=activePlayer;
+       activePlayer=activePlayer===0?1:0;
+       Player0.classList.toggle('player--active');
+       Player1.classList.toggle('player--active');
+       currentScore=0;
+       document.getElementById(`current--${nonActive}`).textContent=currentScore;
     }
     else
     {
        currentScore+=number;
-       current0.textContent=currentScore;
+       document.getElementById(`current--${activePlayer}`).textContent=currentScore;
     }
 })
