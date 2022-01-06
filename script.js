@@ -8,19 +8,32 @@ let btnNew=document.querySelector('.btn--new');
 let btnRoll=document.querySelector('.btn--roll');
 let btnHold=document.querySelector('.btn--hold');
 let current0=document.getElementById('current--0');
+let current1=document.getElementById('current--1');
 let Player0=document.querySelector('.player--0');
 let Player1=document.querySelector('.player--1');
 // Setting to initial values
 
-score0.textContent=0;
-score1.textContent=0;
-diceval.classList.add('hidden');
-
-const score=[0,0];
-let currentScore=0;
-let activePlayer=0;
-let playing=true;
-
+   let activePlayer;
+    let currentScore;
+    let playing;
+    let score;
+const initalCondition=function()
+{
+    activePlayer=0;
+    currentScore=0;
+    playing=true;
+    score=[0,0];
+    current0.textContent=0;
+    current1.textContent=0;
+    diceval.classList.add('hidden');
+    Player0.classList.remove('player--winner');
+    Player1.classList.remove('player--winner');
+    Player0.classList.add('player--active');
+    Player1.classList.add('player--active');
+    score0.textContent=0;
+    score1.textContent=0;
+}
+initalCondition();
 const switchPlayer=function()
 {
         let nonActive=activePlayer;
@@ -59,7 +72,7 @@ btnHold.addEventListener('click',function(){
         score[activePlayer]+=currentScore;
         document.getElementById(`score--${activePlayer}`).textContent=score[activePlayer];
         //check if score>= 100 player wins
-        if(score[activePlayer]>=20)
+        if(score[activePlayer]>=100)
         {
             document.querySelector(`.player--${activePlayer}`).classList.add('player--winner');
             document.querySelector(`.player--${activePlayer}`).classList.remove('player--active');
@@ -70,3 +83,5 @@ btnHold.addEventListener('click',function(){
             switchPlayer();
     }
 })
+
+btnNew.addEventListener('click',initalCondition);
